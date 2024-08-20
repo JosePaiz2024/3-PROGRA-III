@@ -25,6 +25,7 @@ class Paloma(Animal):
         pass
 
 paloma1 =Paloma("Ala Blanca","Pequeña","Ciudad","Omnivora","Hembra","Monocromatica")
+print(paloma1.especie)
 
 paloma1.despl()
 paloma1.volar()
