@@ -1,0 +1,90 @@
+SW1
+
+ena 
+conf t
+host SW1
+int G0/1
+no shut
+sw mo tru
+exit
+int range F0/23-24
+channel-group 1 mode active
+exit
+int port-channel 1
+sw mo tru
+sw tr all vlan 1,2
+exit
+int range F0/21-22
+channel-group 3 mode active
+exit
+int port-channel 3
+sw mo tru
+sw tr all vlan 1,3
+exit
+
+
+SW0
+
+ena 
+conf t
+host SW2
+int G0/1
+no shut
+sw mo tru
+exit
+int range F0/23-24
+channel-group 1 mode active
+exit
+int port-channel 1
+sw mo tru
+sw tr all vlan 1
+exit
+int range F0/19-20
+channel-group 2 mode active
+exit
+int port-channel 3
+sw mo tru
+sw tr all vlan 1
+exit
+
+SW2
+
+ena 
+conf t
+host SW3
+int range F0/21-22
+channel-group 3 mode active
+exit
+int port-channel 3
+sw mo tru
+sw tr all vlan 1
+exit
+int range F0/19-20
+channel-group 2 mode active
+exit
+int port-channel 3
+sw mo tru
+sw tr all vlan 1
+exit
+
+SW3
+
+ena 
+conf t
+host SW4
+int range F0/21-24
+channel-group 6 mode desirable
+int port-channel 6
+sw mo tru
+
+SW3
+
+ena 
+conf t
+host SW5
+int range F0/21-24
+channel-group 6 mode desirable
+int port-channel 6
+sw mo tru
+
+

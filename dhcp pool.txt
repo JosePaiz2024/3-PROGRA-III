@@ -1,0 +1,91 @@
+ena
+conf t
+ip dhcp pool CHOCHO1
+net 192.168.0.0 255.255.255.0
+defa 192.168.0.1
+dns-server 8.8.8.8
+exit
+ip dhcp pool CHOCHO2	
+net 172.16.0.0 255.255.255.0
+defa 172.16.0.1
+dns-server 8.8.8.8
+exit
+in G0/0
+no shut
+ip add 192.168.0.1 255.255.255.0
+int G0/1 
+no shut
+ip add 172.16.0.1 255.255.255.0
+exit
+service dhcp
+
+
+_____________________________
+
+/*SEGUNDA RED*/
+
+PRIMER SW 
+ena 
+conf t
+hos sw1
+vlan 10
+vlan 20
+EXIT
+int range G0/1-2
+sw mo trunk
+exit
+int range f0/1-5 
+sw mo acc
+sw acc vlan 10
+exit
+int range f0/6-10
+sw mo accsw acc vlan 20
+exit
+
+
+
+SEGUNDO SW 
+ena 
+conf t
+hos sw2
+vlan 10
+vlan 20
+int range G0/1-2
+sw mo trunk
+exit
+int range f0/1-5 
+sw mo acc
+sw acc vlan 10
+exit
+int range f0/6-10
+sw mo acc
+sw acc vlan 20
+exit
+
+configracion del router 
+ena
+conf t
+host R1
+ip dhcp pool VLAN10
+net 192.168.10.0 255.255.255.0
+defa 192.168.0.1
+dns-server 8.8.8.8
+exit
+ip dhcp pool VLAN20	
+net 192.168.20.0 255.255.255.0
+defa 192.168.20.1
+dns-server 8.8.8.8
+exit
+in G0/0
+no shut
+ip add 192.168.99.1 255.255.255.0    
+exit 
+service dhcp
+int G0/0.10
+enc do 10
+ip add 192.168.10.1 255.255.255.0
+int G0/0.20
+enc do 20
+ip add 192.168.20.1 255.255.255.0
+
+//LA VLAN 99 ES ADMINASTRATIVA
